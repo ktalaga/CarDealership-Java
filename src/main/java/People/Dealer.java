@@ -1,17 +1,18 @@
 package People;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
+import vehicles.Car;
 import vehicles.IDrive;
+import vehicles.Vehicle;
 
 import java.util.ArrayList;
 
-public class Dealer {
+public class Dealer implements IBuy{
      private int till;
-     private ArrayList<IDrive> dealerCollection;
+     private ArrayList<Vehicle> dealerCollection;
 
     public Dealer(int till) {
         this.till = till;
-        this.dealerCollection = new ArrayList<IDrive>();
+        this.dealerCollection = new ArrayList<Vehicle>();
     }
 
     public int getTill() {
@@ -26,12 +27,27 @@ public class Dealer {
         return dealerCollection.size();
     }
 
-    public void addCarToDealerCollection(IDrive car) {
+    public void addCarToDealerCollection(Vehicle car) {
         this.dealerCollection.add(car);
     }
 
-    public IDrive removeCarFromDealerCollection(IDrive car){
+    public Vehicle removeCarFromDealerCollection(Vehicle car){
         this.dealerCollection.remove(car);
         return car;
+    }
+
+    public void buyCar(Vehicle car) {
+        if(this.till > car.getPrice()){
+            dealerCollection.add(car);
+            this.till -= car.getPrice();
+        }
+    }
+
+    public void sellCar(Customer customer, Vehicle car) {
+        if(customer.getMoney() > car.getPrice()){
+            this.till += car.getPrice();
+            customer.removeMoney(car.getPrice());
+            customer.addCarToCollection(removeCarFromDealerCollection(car));
+        }
     }
 }

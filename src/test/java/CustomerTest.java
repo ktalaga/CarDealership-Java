@@ -45,4 +45,17 @@ public class CustomerTest {
         customer.addCarToCollection(car_2);
         assertEquals(2, customer.getCarCollection() );
     }
+
+    @Test
+    public void canAddMoney(){
+        customer.addMoney(10000);
+        assertEquals(35000, customer.getMoney());
+    }
+
+    @Test
+    public void canBuyACar(){
+        customer.buyCar(car_1);
+        assertEquals(2000, customer.getMoney());
+        assertEquals(1,customer.getCarCollection());
+    }
 }

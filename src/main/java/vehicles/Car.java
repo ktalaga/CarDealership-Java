@@ -24,4 +24,7 @@ public class Car extends Vehicle implements IDrive{
     public String drive() {
         return "Press accelerator";
     }
+
+
+
 }

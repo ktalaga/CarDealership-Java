@@ -1,17 +1,21 @@
 package vehicles;
 
-public abstract class Vehicle {
+import java.util.ArrayList;
+
+public abstract class Vehicle implements IDamage {
 
     private int price;
     private String colour;
     private Motor motor;
     private String model;
+    private ArrayList<IDamage> damageList;
 
     public Vehicle(int price, String colour, Motor motor, String model) {
         this.price = price;
         this.colour = colour;
         this.motor = motor;
         this.model = model;
+        this.damageList = new ArrayList<IDamage>();
     }
 
     public int getPrice() {
@@ -40,5 +44,24 @@ public abstract class Vehicle {
 
     public String startEngine(){
         return "Engine started";
+    }
+
+    public int damageCost() {
+        return 0;
+    }
+
+    public void addDamageToDamageArrayList(IDamage damage){
+        damageList.add(damage);
+    }
+
+    public ArrayList<IDamage> getDamageList() {
+        return damageList;
+    }
+
+    public int getTotalDamageCost(){
+        int totalDamageCost = 0;
+        for(IDamage damage : getDamageList()){
+            totalDamageCost += damage.damageCost();
+        }return totalDamageCost;
     }
 }

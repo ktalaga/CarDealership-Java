@@ -1,3 +1,4 @@
+import People.Customer;
 import People.Dealer;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,8 @@ public class DealerTest {
     private Motor motor_2;
     private Tank tank_2;
     private Battery battery_2;
+    private Customer customer;
+    private Customer customer2;
 
     @Before
     public void before(){
@@ -26,6 +29,8 @@ public class DealerTest {
         motor_2 = new Motor(1.60);
         battery_2 = new Battery(100, 50);
         car_2 = new HybridCar(28000, "blue", motor_2,"Golf", FuelType.PETROL, battery_2, tank_2);
+        customer = new Customer(25000);
+        customer2 = new Customer(20000);
     }
 
 
@@ -52,5 +57,34 @@ public class DealerTest {
         dealer.addCarToDealerCollection(car_2);
         dealer.removeCarFromDealerCollection(car_1);
         assertEquals(1, dealer.getDealerCollection() );
+    }
+
+    @Test
+    public void canBuyACar(){
+        dealer.buyCar(car_1);
+        assertEquals(29000, dealer.getTill());
+        assertEquals(1,dealer.getDealerCollection());
+    }
+
+    @Test
+    public void canSellACarToCustomer(){
+        dealer.addCarToDealerCollection(car_1);
+        dealer.addCarToDealerCollection(car_2);
+        dealer.sellCar(customer, car_1);
+        assertEquals(1, dealer.getDealerCollection() );
+        assertEquals(1,customer.getCarCollection());
+        assertEquals(75000, dealer.getTill());
+        assertEquals(2000, customer.getMoney());
+    }
+
+    @Test
+    public void canRefuseToSellIfCustomerHasNoEnoughMoney() {
+        dealer.addCarToDealerCollection(car_1);
+        dealer.addCarToDealerCollection(car_2);
+        dealer.sellCar(customer2, car_1);
+        assertEquals(2, dealer.getDealerCollection() );
+        assertEquals(0,customer2.getCarCollection());
+        assertEquals(52000, dealer.getTill());
+        assertEquals(20000, customer2.getMoney());
     }
 }
