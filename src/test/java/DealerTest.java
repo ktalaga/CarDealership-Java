@@ -101,4 +101,13 @@ public class DealerTest {
         dealer.reduceVehiclePriceByDamageCost(car_1);
         assertEquals(22500, car_1.getPrice());
     }
+
+    @Test
+    public void canRepairVehicles() {
+        car_1.addDamageToDamageArrayList(flatTyre);
+        car_1.addDamageToDamageArrayList(brokenMirror);
+        dealer.reduceVehiclePriceByDamageCost(car_1);
+        dealer.repairVehicle(car_1);
+        assertEquals(23250, car_1.getPrice());
+    }
 }

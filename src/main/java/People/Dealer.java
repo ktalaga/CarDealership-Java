@@ -1,6 +1,7 @@
 package People;
 
 import vehicles.Car;
+import vehicles.IDamage;
 import vehicles.IDrive;
 import vehicles.Vehicle;
 
@@ -54,5 +55,13 @@ public class Dealer implements IBuy{
     public void reduceVehiclePriceByDamageCost(Vehicle vehicle) {
         int reducedPrice = vehicle.getPrice() - vehicle.getTotalDamageCost();
         vehicle.setPrice(reducedPrice);
+    }
+
+    public void repairVehicle(Vehicle vehicle) {
+        int priceToBeAdded = 0;
+        for(IDamage damage : vehicle.getDamageList()){
+            double repairCost = damage.damageCost() * 1.5;
+            priceToBeAdded += repairCost;
+        }vehicle.setPrice(vehicle.getPrice() + priceToBeAdded);
     }
 }
