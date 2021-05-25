@@ -2,22 +2,26 @@ package vehicles;
 
 import com.sun.xml.internal.ws.api.pipe.Engine;
 
-public class Car extends Vehicle{
+public class Car extends Vehicle implements IDrive{
 
-    private int tankSize;
+    private Tank tank;
     private FuelType fuelType;
 
-    public Car(int price, String colour, Motor motor, String model, int tankSize, FuelType fuelType) {
+    public Car(int price, String colour, Motor motor, String model, Tank tank, FuelType fuelType) {
         super(price, colour, motor, model);
-        this.tankSize = tankSize;
+        this.tank = tank;
         this.fuelType = fuelType;
     }
 
     public int getTankSize() {
-        return tankSize;
+        return tank.getTankSize();
     }
 
     public FuelType getFuelType() {
         return fuelType;
+    }
+
+    public String drive() {
+        return "Press accelerator";
     }
 }
