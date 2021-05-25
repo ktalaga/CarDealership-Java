@@ -50,4 +50,9 @@ public class Dealer implements IBuy{
             customer.addCarToCollection(removeCarFromDealerCollection(car));
         }
     }
+
+    public void reduceVehiclePriceByDamageCost(Vehicle vehicle) {
+        int reducedPrice = vehicle.getPrice() - vehicle.getTotalDamageCost();
+        vehicle.setPrice(reducedPrice);
+    }
 }

@@ -64,4 +64,6 @@ public abstract class Vehicle implements IDamage {
             totalDamageCost += damage.damageCost();
         }return totalDamageCost;
     }
+
+
 }

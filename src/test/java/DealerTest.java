@@ -1,5 +1,7 @@
 import People.Customer;
 import People.Dealer;
+import damages.BrokenMirror;
+import damages.FlatTyre;
 import org.junit.Before;
 import org.junit.Test;
 import vehicles.*;
@@ -18,6 +20,8 @@ public class DealerTest {
     private Battery battery_2;
     private Customer customer;
     private Customer customer2;
+    private IDamage brokenMirror;
+    private IDamage flatTyre;
 
     @Before
     public void before(){
@@ -31,6 +35,8 @@ public class DealerTest {
         car_2 = new HybridCar(28000, "blue", motor_2,"Golf", FuelType.PETROL, battery_2, tank_2);
         customer = new Customer(25000);
         customer2 = new Customer(20000);
+        brokenMirror = new BrokenMirror(200);
+        flatTyre = new FlatTyre(300);
     }
 
 
@@ -86,5 +92,13 @@ public class DealerTest {
         assertEquals(0,customer2.getCarCollection());
         assertEquals(52000, dealer.getTill());
         assertEquals(20000, customer2.getMoney());
+    }
+
+    @Test
+    public void canSubtractTotalDamageCostFromVehiclePrice() {
+        car_1.addDamageToDamageArrayList(flatTyre);
+        car_1.addDamageToDamageArrayList(brokenMirror);
+        dealer.reduceVehiclePriceByDamageCost(car_1);
+        assertEquals(22500, car_1.getPrice());
     }
 }
